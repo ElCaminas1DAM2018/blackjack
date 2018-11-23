@@ -4,3 +4,6 @@
 /Player.class
 /PlayerStateType.class
 /SuitType.class
+/House.class
+/GameRound.class
+/Game.class

@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Player {
 	
@@ -19,12 +18,11 @@ public class Player {
 	}
 	
 	public static Player readFromKeyboard() {
-		Scanner input = new Scanner(System.in);
+		
 		System.out.print("Enter name: ");
-		String name = input.nextLine();
+		String name = MainClass.input.next();
 		System.out.print("Initial money: ");
-		int money = input.nextInt();
-		input.close();
+		int money = MainClass.input.nextInt();
 		Player player = new Player(name, money);
 		return player;
 	}
@@ -43,6 +41,7 @@ public class Player {
 				s = s + ", " + cards[i];
 			}
 		}
+		s = s + " (" + getScore() + ")"; 
 		s = s + "  Bet: " + bet + " remaining:" + money;
 		return s;
 	}
@@ -59,8 +58,54 @@ public class Player {
 		} else {
 			bet += increment;
 			money -= increment;
+		}		
+	}
+	
+	public String getName() {
+		return name;		
+	}
+	
+	public Card[] getCards() {
+		return cards;
+	}
+	
+	public int getNumCards() {
+		return numCards;
+	}
+	
+	public PlayerStateType getState() {
+		return playerState;
+	}
+	
+	public void setState(PlayerStateType state) {
+		playerState = state;
+	}
+	
+	public int getScore() {
+		int score = 0;
+		boolean wasAce = false;
+		for (int i=0; i<numCards; i++) {			
+			score += cards[i].getValue();
+			if (cards[i].getValue() == 1) {
+				wasAce = true;
+			}
 		}
-		
+		if (wasAce && score + 10 <= 21) {
+			score += 10;
+		}		
+		return score;
+	}
+	
+	public int getBet() {
+		return bet;
+	}
+	
+	public int getMoney() {
+		return money;
+	}
+	
+	public void incrementMoney(int increment) {
+		money += increment;
 	}
 
 }
