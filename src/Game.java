@@ -7,6 +7,7 @@ public class Game {
 	
 	public Game(int numPlayers, int numDecks, int blindBet) {
 		deck = new Deck(numDecks);
+		deck.shuffle();
 		this.blindBet = blindBet;
 		players = new Player[numPlayers];
 		players[0] = new House();
